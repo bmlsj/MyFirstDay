@@ -9,14 +9,12 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContentProviderCompat.requireContext
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
-import com.google.android.play.core.integrity.e
 import com.kakao.sdk.auth.AuthApiClient
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.ClientError
@@ -26,13 +24,9 @@ import com.kakao.sdk.user.UserApiClient
 import com.shoppi.myfirstday.models.GlobalApplication
 import com.shoppi.myfirstday.models.LoginRetrofitBuilder
 import com.shoppi.myfirstday.models.User
-import okhttp3.ResponseBody
-import org.apache.commons.lang3.exception.ExceptionUtils.getMessage
-import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.security.AccessController.getContext
 
 class LoginActivity : AppCompatActivity() {
 
@@ -103,20 +97,21 @@ class LoginActivity : AppCompatActivity() {
                     Log.e("Header Data : ", response.headers()["Authorization"].toString())
 
                     // 헤더의 인가값 -> 어떤 요청이던지 헤더에 붙여서 보내기
-//                    response.headers()["Authorization"]?.let {
-//                        // Log.d("RESPONSE2", it)
-//                        // Toast.makeText(this@LoginActivity, it, Toast.LENGTH_SHORT).show()
-//
-//                        val sharedValue = GlobalApplication.sSharedPreferences.edit()
-//                        sharedValue.putString("Authorization", it)
-//                        sharedValue.apply()
-//                    }
+                    response.headers()["Authorization"]?.let {
+                        // Log.d("RESPONSE2", it)
+                        // Toast.makeText(this@LoginActivity, it, Toast.LENGTH_SHORT).show()
+
+                        val sharedValue = GlobalApplication.sSharedPreferences.edit()
+                        sharedValue.putString("Authorization", it)
+                        sharedValue.apply()
+                    }
 
 
                 } else {
                     // 통신 성공 but 응답 실패
                     Log.d("RESPONSE", "FAILURE")
-                    Log.d("ERROR", "$response")
+                    Log.d("ERROR", response.errorBody().toString())
+                    Toast.makeText(this@LoginActivity, "${response.errorBody()?.toString()}", Toast.LENGTH_SHORT).show()
                 }
             }
 
