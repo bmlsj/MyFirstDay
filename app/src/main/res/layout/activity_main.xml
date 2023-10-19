@@ -74,6 +74,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <Button
+            android:id="@+id/btn_draweropen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/btnColor"
+            android:text="open" />
+
         <TextView
             android:id="@+id/tv_fragment_scheduled_event"
             android:layout_width="wrap_content"
@@ -100,5 +107,40 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_fragment_scheduled_event" />
 
     </FrameLayout>
+
+
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/layout_main_drawer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical"
+        tools:context=".MainActivity"
+        tools:openDrawer="start">
+
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/main_navigationView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:background="@color/BgMenuBar"
+            android:fitsSystemWindows="true"
+            app:headerLayout="@layout/menubar_header"
+            app:itemTextColor="@color/appName"
+            app:menu="@menu/main_menu">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|start"
+                android:layout_marginStart="20dp"
+                android:layout_marginBottom="20dp"
+                android:text="coho98@gmail.com\n@COHO"
+                android:textColor="@color/blurText" />
+
+        </com.google.android.material.navigation.NavigationView>
+
+    </androidx.drawerlayout.widget.DrawerLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

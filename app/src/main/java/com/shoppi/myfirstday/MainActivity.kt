@@ -2,7 +2,10 @@ package com.shoppi.myfirstday
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import com.shoppi.myfirstday.databinding.ActivityMainBinding
 import com.shoppi.myfirstday.models.MainRetrofitBuilder
 import retrofit2.Call
@@ -26,9 +29,6 @@ class MainActivity : AppCompatActivity() {
         retrofitBuilder()
         retrofitBuilder2()
 
-        // TODO("툴바에 메뉴 버튼 생성")
-
-
         // 진행 완료 fragment 구현
         val fragmentCompletedEvent = FragmentCompletedEvent()
 
@@ -48,13 +48,19 @@ class MainActivity : AppCompatActivity() {
 
         // 이벤트 추가 버튼
         binding.btnPlus.setOnClickListener {
-            val mBuilder = CustomDialogFragment()
-            mBuilder.show(supportFragmentManager, "customDialog")
+            CustomDialogFragment()
+                .show(supportFragmentManager, "customDialog")
         }
+
+        // TODO("툴바에 메뉴 버튼 생성")
+        // binding.layoutMainDrawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+
+        binding.layoutMainDrawer.open()
+
     }
 
     private fun retrofitBuilder() {
-        
+
         // 진행 완료 데이터 1개
         val res = MainRetrofitBuilder()
         val call = res.dataApi.getDoneEvents()
@@ -67,12 +73,12 @@ class MainActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     Log.d("RESPONSE_MAIN: ", response.body().toString())
 
-                        /*
-                    response.body()?.let {
-                        it.forEachIndexed { index ->
-                            Log.d("DATA","[$index] date = $invitationEvents")
-                        }
-                    } */
+                    /*
+                response.body()?.let {
+                    it.forEachIndexed { index ->
+                        Log.d("DATA","[$index] date = $invitationEvents")
+                    }
+                } */
                 }
             }
 
@@ -84,7 +90,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun retrofitBuilder2() {
-        
+
         // 진행 예정 데이터 3개
         val res = MainRetrofitBuilder()
         val call = res.dataApi.getProgressingEvents()
@@ -112,7 +118,6 @@ class MainActivity : AppCompatActivity() {
             }
         })
     }
-
 
 
 }
