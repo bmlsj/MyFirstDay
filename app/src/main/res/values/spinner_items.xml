@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="event_spinner_array">
+        <item>선택하세요</item>
+        <item>결혼식</item>
+        <item>생일</item>
+        <item>파티</item>
+    </string-array>
+</resources>
